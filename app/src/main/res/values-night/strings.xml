@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ExomindTest</string>
+    <string name="start">Commencez</string>
+    <string name="text_start">Cliquez sur le \"Commencez\" pour aller sur l\'ecran données météo</string>
+    <string name="percentage_symbole">"%"</string>
+    <string name="first_waiting_text">Nous téléchargeons les données…</string>
+    <string name="second_waiting_text">C’est presque fini…</string>
+    <string name="three_waiting_text">Plus que quelques secondes avant d\’avoir le résultat…</string>
+    <string name="table_title">Conditions météorologiques dans l\'état le plus important de France</string>
+    <string name="ville">Ville</string>
+    <string name="temperature">Température</string>
+    <string name="cloudcover">Couverture nuageuse</string>
+</resources>
