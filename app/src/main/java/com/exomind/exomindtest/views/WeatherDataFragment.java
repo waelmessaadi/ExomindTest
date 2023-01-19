@@ -48,8 +48,6 @@ public class WeatherDataFragment extends Fragment {
     FragmentWeatherDataBinding weatherDataBinding;
     WeatherDataViewModel weatherDataViewModel;
 
-    List<ResponseWeather> listData = new ArrayList<>();
-
     int indexWaitingText = 0;
     int index = 0;
 
@@ -129,14 +127,9 @@ public class WeatherDataFragment extends Fragment {
         }.start();
     }
 
-    private void observeData() {
-        weatherDataViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), responseWeathers -> {
-            listData.addAll(responseWeathers);
-
-        });
-    }
-
     void startUpdateProgressbar() {
+        List<ResponseWeather> listData = new ArrayList<>();
+
         new CountDownTimer(DURATION, INTERVAL_10) {
 
             @SuppressLint("SetTextI18n")
@@ -144,30 +137,24 @@ public class WeatherDataFragment extends Fragment {
 
                 int progress = (int) ((DURATION - millisUntilFinished) * 100 / DURATION);
 
-                Log.e("TAG", "onTick: call api " + progress);  // Updating the progress bar value
 
                 weatherDataBinding.progressBar.setProgress(progress + 17);
                 weatherDataBinding.progressPercentage.setText((progress + 17) + getString(R.string.percentage_symbole));
 
                 if (index == 0) {
-                    observeData();
                     weatherDataViewModel.getWeatherData("rennes");
                     index = 1;
                 } else if (index == 1) {
-                    observeData();
                     weatherDataViewModel.getWeatherData("paris");
                     index = 2;
                 } else if (index == 2) {
-                    observeData();
                     weatherDataViewModel.getWeatherData("nantes");
 
                     index = 3;
                 } else if (index == 3) {
-                    observeData();
                     weatherDataViewModel.getWeatherData("bordeaux");
                     index = 4;
                 } else if (index == 4) {
-                    observeData();
                     weatherDataViewModel.getWeatherData("lyon");
                     index = 5;
                 }
@@ -181,6 +168,10 @@ public class WeatherDataFragment extends Fragment {
 
                 weatherDataBinding.btnRestart.setVisibility(View.VISIBLE);
                 weatherDataBinding.tableLayout.setVisibility(View.VISIBLE);
+
+                listData.addAll(weatherDataViewModel.getWeatherDataList());
+
+                Log.e("TAG", "onFinish: " + listData.get(0));
 
                 // data of rennes
                 weatherDataBinding.tvRennesTeperature.setText(listData.get(0).getMain().getTemp().toString());
@@ -287,7 +278,7 @@ public class WeatherDataFragment extends Fragment {
                         break;
                 }
 
-                // data of Paris
+                // data of Bordeaux
                 weatherDataBinding.tvBrdTemperature.setText(listData.get(3).getMain().getTemp().toString());
 
                 switch (listData.get(3).getWeather().get(0).getIcon()) {
@@ -322,7 +313,7 @@ public class WeatherDataFragment extends Fragment {
                         break;
                 }
 
-                // data of Paris
+                // data of Lyon
                 weatherDataBinding.tvLynTempurateur.setText(listData.get(4).getMain().getTemp().toString());
 
                 switch (listData.get(4).getWeather().get(0).getIcon()) {

@@ -7,6 +7,7 @@ import com.exomind.exomindtest.models.ResponseWeather;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
+import retrofit2.Call;
 
 public class Repository {
 
@@ -18,7 +19,7 @@ public class Repository {
     }
 
     // Response apis
-    public Observable<ResponseWeather> weatherData(String city) {
+    public Call<ResponseWeather> weatherData(String city) {
         return apiServices.getWeatherdata(city, CommonKeys.apiKey);
     }
 }
